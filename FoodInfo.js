@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { Avatar, Card } from "react-native-elements";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FoodInfo({ route, navigation }) {
   const [found, setFound] = useState(-1);
@@ -21,9 +22,9 @@ export default function FoodInfo({ route, navigation }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-      navigation.setParams({
-        barcode: route.params.barcode,
-      });
+    navigation.setParams({
+      barcode: route.params.barcode,
+    });
   }, []);
 
   useEffect(() => {
@@ -33,24 +34,14 @@ export default function FoodInfo({ route, navigation }) {
       .get(apiUrl)
       .then((res) => {
         setData(res.data);
-        // if (res.data.status === 1) {
-        //   setKeywords(res.data.product._keywords);
-        //   setFrontImage(res.data.product.image_front_url); //image_front_small_url
-        //   setBrand(res.data.product.brands);
-        //   setNutriments(res.data.product.nutriments);
-        //   setIngredients(res.data.product.ingredients_text_en);
-        //   setName(res.data.product.product_name);
-        //   setFound(1);
-        // } else {
-        //   setFound(0);
-        // }
+        getRecommend();
       })
       .catch((error) => {
         console.log(error);
       });
   }, [route]);
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -67,6 +58,29 @@ export default function FoodInfo({ route, navigation }) {
     }
   }, [data]);
 
+  function getRecommend() {
+    let data = {};
+    const getData = async () => {
+      try {
+        data.diabetes = await AsyncStorage.getItem("diabetes");
+        data.vegan = await AsyncStorage.getItem("vegan");
+        data.lact = await AsyncStorage.getItem("lact");
+        data.nut = await AsyncStorage.getItem("nut");
+        if (data !== null) {
+          console.log(data)
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
+    getData()
+    console.log(data)
+  }
+
+  function Recommend() {
+    return <Text style={styles.recommend}>Test</Text>;
+  }
+
   return (
     <View
       style={{
@@ -77,7 +91,11 @@ export default function FoodInfo({ route, navigation }) {
       }}
     >
       {found === -1 && <ActivityIndicator color={"#FA4A0C"} />}
-      {found === 0 && <Text style={styles.notFoundText}>Food Not Found </Text>}
+      {found === 0 && (
+        <Text style={styles.notFoundText}>
+          Sorry, the food you are looking for is not in the database.
+        </Text>
+      )}
       {found === 1 && (
         <SafeAreaView style={styles.container}>
           <ScrollView
@@ -93,7 +111,8 @@ export default function FoodInfo({ route, navigation }) {
               />
               <Text style={styles.itemHeading}>{name}</Text>
             </View>
-            <Text style={styles.recommend}>Not recommended</Text>
+            <Recommend />
+            {/* <Text style={styles.recommend}>Not recommended</Text>
             <Text style={styles.bullet}>
               {"\u2022"} You have a Nut Allergy and this item contains a high
               quantity of Hazelnuts
@@ -101,7 +120,7 @@ export default function FoodInfo({ route, navigation }) {
             <Text style={styles.bullet}>
               {"\u2022"} You have Diabetes and this item contains a high
               quantity of Sugar and Saturated Fats
-            </Text>
+            </Text> */}
             <Card containerStyle={{ borderRadius: 24 }}>
               <Card.Title>Ingredients</Card.Title>
               <Card.Divider />
@@ -138,6 +157,7 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 25,
     color: "#FA4A0C",
+    textAlign: "center",
   },
   container: {
     alignItems: "center",
@@ -147,13 +167,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemHeading: {
-    fontFamily: "Quicksand_Bold",
+    fontFamily: "Quicksand_Regular",
     fontSize: 24,
     padding: 15,
     textAlign: "center",
   },
   recommend: {
-    fontFamily: "Quicksand_Bold",
+    fontFamily: "Quicksand_Regular",
     fontSize: 24,
     padding: 15,
     color: "#FA4A0C",

@@ -56,11 +56,11 @@ export default function Camera({navigation}) {
       <View style={styles.textContainer}>  
         <View style = {styles.square}>
           <Text style = {{
-            fontFamily : 'Arial',
+            fontFamily: "Quicksand",
             fontSize : 25}}>
               Position barcode </Text>
               <Text style = {{
-            fontFamily : 'Arial',
+            fontFamily: "Quicksand",
             fontSize : 25}}>
               in centre </Text>
         </View>         

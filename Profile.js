@@ -43,20 +43,20 @@ export default function Profile() {
         <View style={[styles.section, { flexDirection: "column" }]}>
           <Text style={styles.cardTitle}>Diet Plan </Text>
           <View style={[styles.card, { flexDirection: "column" }]}>
-            <CheckBox title="Keto" />
-            <CheckBox title="Paleo" />
-            <CheckBox title="Vegan" />
-            <CheckBox title="Mayo" />
+            <CheckBox title="Keto" id="keto"/>
+            <CheckBox title="Paleo" id="paleo"/>
+            <CheckBox title="Vegan" id="vegan"/>
+            <CheckBox title="Mayo Clinic" id="mayo"/>
           </View>
         </View>
 
         <View style={[styles.section, { flexDirection: "column" }]}>
           <Text style={styles.cardTitle}>Conditions </Text>
           <View style={[styles.card, { flexDirection: "column" }]}>
-            <CheckBox title="Diabetes" />
-            <CheckBox title="Cardiovascular disease" />
-            <CheckBox title="Lactose intolerance" />
-            <CheckBox title="Nut allergy" />
+            <CheckBox title="Diabetes" id="diabetes"/>
+            <CheckBox title="Cardiovascular disease" id="cardio"/>
+            <CheckBox title="Lactose intolerance" id="lact"/>
+            <CheckBox title="Nut allergy" id="nut"/>
           </View>
         </View>
       </ScrollView>
