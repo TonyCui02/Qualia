@@ -3,11 +3,13 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import BottomTabs from './BottomTabs';
 
 function HomeScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Test!</Text>
+      <Text>estet!</Text>
     </View>
   );
 }
@@ -45,6 +47,15 @@ export default function App() {
   //   return <Text>No access to camera</Text>;
   // }
 
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      primary: "#FA4A0C",
+      accent: "#f1c40f",
+    },
+  };
+
   return (
     // <Container>
     //   {/* <View style={styles.container}> */}
@@ -64,12 +75,7 @@ export default function App() {
     //   {/* </View> */}
     // </Container>
 
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <BottomTabs/>
   );
 }
 
