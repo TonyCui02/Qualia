@@ -1,27 +1,12 @@
 import * as React from "react";
-import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Camera from './Camera';
+import FoodInfo from './FoodInfo';
+import Profile from './Profile';
 
 const Tab = createBottomTabNavigator();
-
-function Info() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Food Info!</Text>
-    </View>
-  );
-}
-
-function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
 
 function Tabs() {
   return (
@@ -42,10 +27,10 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Info"
-        component={Info}
+        name="FoodInfo"
+        component={FoodInfo}
         options={{
-          tabBarLabel: "Info",
+          tabBarLabel: "Food Info",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="information" color={color} size={size} />
           ),
