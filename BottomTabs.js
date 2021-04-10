@@ -7,14 +7,6 @@ import Camera from './Camera';
 
 const Tab = createBottomTabNavigator();
 
-// function Camera() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//       <Text>Camera!</Text>
-//     </View>
-//   );
-// }
-
 function Info() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
