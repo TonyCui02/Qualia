@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Image, Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { TabActions, CommonActions} from '@react-navigation/native';
-import {Surface, Shape} from '@react-native-community/art';
 
 export default function Camera({navigation}) {
   const [clicked, setClicked] = useState(false);

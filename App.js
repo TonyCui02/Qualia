@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BottomTabs from "./BottomTabs";
 import { ThemeProvider, Button } from "react-native-elements";
 import { useFonts } from "expo-font";
-import firebase from "firebase";
 
 const theme = {
   colors: {
