@@ -11,6 +11,7 @@ import { Avatar, ListItem, Header, Icon } from "react-native-elements";
 import CheckBox from "./components/Checkbox";
 
 export default function Profile() {
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -23,17 +24,19 @@ export default function Profile() {
           Let us know if you require monitoring of your foods and ingredients?
         </Text>
 
-        <View style={[styles.card, { flexDirection: "column" }]}>
+        <View style={[styles.card, { flexDirection: "row" }]}>
           <Avatar
+            size="medium"
             rounded
             source={{
               uri:
                 "https://images.squarespace-cdn.com/content/v1/596001c2579fb355caec7aac/1517007370565-WIAY17SDUXVIG5AAVX3Y/ke17ZwdGBToddI8pDm48kOyzHbQy-kL0n4K_9mkHuJZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmLKoxsx6wp33kn5fgRqCuBXSgNoSSmWa6rmg7AwlCPJgGOqEoAQtoIVwjQZxv17FW/6+aokamei.jpg?format=500w",
             }}
+            containerStyle={{ marginHorizontal: 8 }}
           />
           <View>
-            <Text>Tony</Text>
-            <Text>Tonycui02@gmail.com</Text>
+            <Text style={styles.personName}>Tony</Text>
+            <Text style={styles.personEmail}>Tonycui02@gmail.com</Text>
           </View>
         </View>
 
@@ -82,14 +85,22 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: "Quicksand",
-    fontWeight: 800,
+    fontWeight: "600",
     padding: 8,
-    fontSize: 24,
+    fontSize: 26,
   },
   card: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
     paddingVertical: 16,
-    width: 200,
+    width: 300,
+  },
+  personName: {
+    fontFamily: "Quicksand",
+    fontSize: 28,
+    fontWeight: "900",
+  },
+  personEmail: {
+    fontFamily: "Quicksand",
   },
 });

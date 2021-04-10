@@ -29,6 +29,7 @@ function Tabs() {
       <Tab.Screen
         name="FoodInfo"
         component={FoodInfo}
+        initialParams={{ barcode: "None"}}
         options={{
           tabBarLabel: "Food Info",
           tabBarIcon: ({ color, size }) => (
