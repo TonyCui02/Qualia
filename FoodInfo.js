@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function FoodInfo({ route, navigation }) {
   const [found, setFound] = useState(-1);
   const [frontImage, setFrontImage] = useState(null);
-  const [keywords, setKeywords] = useState (null);  // a list of keywords
+  const [keywords, setKeywords] = useState(null); // a list of keywords
   const [brand, setBrand] = useState(null);
   const [nutriments, setNutriments] = useState(null);
   const [ingredients, setIngredients] = useState(null);
@@ -29,18 +29,18 @@ export default function FoodInfo({ route, navigation }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-
-    setRecommend(true)
-    setDiabetes(false);
-    setLactose(false);
-    setNut(false);
-
     navigation.setParams({
       barcode: route.params.barcode,
     });
   }, []);
 
   useEffect(() => {
+    // Reset recommendations
+    setRecommend(true);
+    setDiabetes(false);
+    setLactose(false);
+    setNut(false);
+
     let apiUrl =
       "https://au.openfoodfacts.org/api/v0/product/" + route.params.barcode;
     axios
@@ -125,7 +125,7 @@ export default function FoodInfo({ route, navigation }) {
         });
       }
 
-      console.log(allergy)
+      console.log(allergy);
       // console.log(messages)
     }
   }, [nutriments, allergy]);
@@ -164,15 +164,27 @@ export default function FoodInfo({ route, navigation }) {
             <Text style={styles.recommend}>
               {recommend ? "Recommended" : "Not Recommended"}
             </Text>
-              {nut
-                ? <Text style={styles.bullet}>- You have a <Text style={styles.highlight}>Nut Allergy</Text> and this item contains <Text style={styles.highlight}>Nuts</Text></Text>
-                : null}
-              {diabetes
-                ? <Text style={styles.bullet}>- You have <Text style={styles.highlight}>Diabetes</Text> and this item contains a high quantity of <Text style={styles.highlight}>Sugar</Text></Text>
-                : null}
-              {lactose
-                ? <Text style={styles.bullet}>- You have <Text style={styles.highlight}>Lactose Intolerance</Text> and this item contains <Text style={styles.highlight}>Milk</Text></Text>
-                : null}
+            {nut ? (
+              <Text style={styles.bullet}>
+                - You have a <Text style={styles.highlight}>Nut Allergy</Text>{" "}
+                and this item contains{" "}
+                <Text style={styles.highlight}>Nuts</Text>
+              </Text>
+            ) : null}
+            {diabetes ? (
+              <Text style={styles.bullet}>
+                - You have <Text style={styles.highlight}>Diabetes</Text> and
+                this item contains a high quantity of{" "}
+                <Text style={styles.highlight}>Sugar</Text>
+              </Text>
+            ) : null}
+            {lactose ? (
+              <Text style={styles.bullet}>
+                - You have{" "}
+                <Text style={styles.highlight}>Lactose Intolerance</Text> and
+                this item contains <Text style={styles.highlight}>Milk</Text>
+              </Text>
+            ) : null}
             <Card containerStyle={{ borderRadius: 24 }}>
               <Card.Title>Ingredients</Card.Title>
               <Card.Divider />
