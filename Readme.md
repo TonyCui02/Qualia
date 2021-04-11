@@ -21,6 +21,13 @@ This project is used for the Chronicle Hackathon.
 
 ## Getting Started
 
+### Prerequisites (Important)
+1. Install Node JS
+https://nodejs.org/en/
+
+2. Install Expo Cli
+```npm install -g expo-cli
+
 ### The best suggestion to get started is to clone the repository:
 
 1. Get the latest version
