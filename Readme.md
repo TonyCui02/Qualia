@@ -26,7 +26,9 @@ This project is used for the Chronicle Hackathon.
 https://nodejs.org/en/
 
 2. Install Expo Cli
-```npm install -g expo-cli
+```
+npm install -g expo-cli
+```
 
 ### The best suggestion to get started is to clone the repository:
 
