@@ -21,13 +21,18 @@ This project is used for the Chronicle Hackathon.
 
 ## Getting Started
 
+**NOTE:** Currently user preferences are still work in progess, the app by default assumes you have Diabetes, Lactose Intolerance and Nut Allergy selected as conditions. 
+
+Ability to change this will be implemented in the future
+
+## Option 1 - Running on local machine
 ### Prerequisites (Important)
 1. Install Node JS
 https://nodejs.org/en/
 
 2. Install Expo Cli
 ```
-npm install -g expo-cli
+npm install -global expo-cli
 ```
 
 ### The best suggestion to get started is to clone the repository:
@@ -55,7 +60,7 @@ npm start
 
 7. The app will run on Expo
 
-### Live App is available on Android (Ios users need to run in local)
+## Option 2 - Live App is available on Android (Ios users need to run in local)
 
 1. Search "Expo Go" on the app store/Google play store and download to your phone
 
