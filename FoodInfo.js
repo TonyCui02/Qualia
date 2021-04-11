@@ -116,7 +116,8 @@ export default function FoodInfo({ route, navigation }) {
         });
       }
 
-      console.log(messages)
+      console.log(allergy)
+      // console.log(messages)
     }
   }, [nutriments, allergy]);
 
