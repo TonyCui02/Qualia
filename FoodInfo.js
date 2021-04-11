@@ -162,7 +162,7 @@ export default function FoodInfo({ route, navigation }) {
             </View>
             {/* <Recommend /> */}
             <Text style={styles.recommend}>
-              {recommend ? "Recommended" : "Not Recommendded"}
+              {recommend ? "Recommended" : "Not Recommended"}
             </Text>
               {nut
                 ? <Text style={styles.bullet}>- You have a <Text style={styles.highlight}>Nut Allergy</Text> and this item contains <Text style={styles.highlight}>Nuts</Text></Text>
