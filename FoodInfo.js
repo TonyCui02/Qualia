@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function FoodInfo({ route, navigation }) {
   const [found, setFound] = useState(-1);
   const [frontImage, setFrontImage] = useState(null);
-  //const [keywords, setKeywords] = useState (null);  // a list of keywords
+  const [keywords, setKeywords] = useState (null);  // a list of keywords
   const [brand, setBrand] = useState(null);
   const [nutriments, setNutriments] = useState(null);
   const [ingredients, setIngredients] = useState(null);
@@ -29,6 +29,12 @@ export default function FoodInfo({ route, navigation }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+
+    setRecommend(true)
+    setDiabetes(false);
+    setLactose(false);
+    setNut(false);
+
     navigation.setParams({
       barcode: route.params.barcode,
     });
@@ -58,6 +64,7 @@ export default function FoodInfo({ route, navigation }) {
         setIngredients(data.product.ingredients_text);
         setName(data.product.product_name);
         setAllergy(data.product.ingredients_tags);
+        setKeywords(data.product._keywords);
         setFound(1);
       } else {
         setFound(0);
@@ -79,11 +86,6 @@ export default function FoodInfo({ route, navigation }) {
         nut: [],
         lact: [],
       };
-
-      setRecommend(true)
-      setDiabetes(false);
-      setLactose(false);
-      setNut(false);
 
       if (diabetes) {
         messages.diabetes.push("diabetes");
@@ -108,6 +110,13 @@ export default function FoodInfo({ route, navigation }) {
       if (lact) {
         messages.lact.push("lactose intolerance");
         allergy.forEach((ingredient) => {
+          if (ingredient.includes("milk")) {
+            setLactose(true);
+            setRecommend(false);
+            messages.lact.push("contains milk");
+          }
+        });
+        keywords.forEach((ingredient) => {
           if (ingredient.includes("milk")) {
             setLactose(true);
             setRecommend(false);
