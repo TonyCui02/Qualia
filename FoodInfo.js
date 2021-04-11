@@ -17,7 +17,14 @@ export default function FoodInfo({ route, navigation }) {
   const [brand, setBrand] = useState(null);
   const [nutriments, setNutriments] = useState(null);
   const [ingredients, setIngredients] = useState(null);
+  const [allergy, setAllergy] = useState(null);
+
+  // algorithm for determining recommendation
   const [recommend, setRecommend] = useState(true);
+  const [diabetes, setDiabetes] = useState(false);
+  const [lactose, setLactose] = useState(false);
+  const [nut, setNut] = useState(false);
+
   const [name, setName] = useState("");
   const [data, setData] = useState(null);
 
@@ -34,7 +41,6 @@ export default function FoodInfo({ route, navigation }) {
       .get(apiUrl)
       .then((res) => {
         setData(res.data);
-        getRecommend();
       })
       .catch((error) => {
         console.log(error);
@@ -49,8 +55,9 @@ export default function FoodInfo({ route, navigation }) {
         setFrontImage(data.product.image_front_url); //image_front_small_url
         setBrand(data.product.brands);
         setNutriments(data.product.nutriments);
-        setIngredients(data.product.ingredients_text_en);
+        setIngredients(data.product.ingredients_text);
         setName(data.product.product_name);
+        setAllergy(data.product.ingredients_tags);
         setFound(1);
       } else {
         setFound(0);
@@ -58,28 +65,60 @@ export default function FoodInfo({ route, navigation }) {
     }
   }, [data]);
 
-  function getRecommend() {
-    let data = {};
-    const getData = async () => {
-      try {
-        data.diabetes = await AsyncStorage.getItem("diabetes");
-        data.vegan = await AsyncStorage.getItem("vegan");
-        data.lact = await AsyncStorage.getItem("lact");
-        data.nut = await AsyncStorage.getItem("nut");
-        if (data !== null) {
-          console.log(data)
-        }
-      } catch (e) {
-        // error reading value
-      }
-    };
-    getData()
-    console.log(data)
-  }
+  useEffect(() => {
+    if (nutriments && allergy) {
+      analyse();
+    }
 
-  function Recommend() {
-    return <Text style={styles.recommend}>Test</Text>;
-  }
+    function analyse() {
+      let diabetes = true;
+      let nut = true;
+      let lact = true;
+      let messages = {
+        diabetes: [],
+        nut: [],
+        lact: [],
+      };
+
+      setRecommend(true)
+      setDiabetes(false);
+      setLactose(false);
+      setNut(false);
+
+      if (diabetes) {
+        messages.diabetes.push("diabetes");
+        if (nutriments.sugars >= 15) {
+          setDiabetes(true);
+          setRecommend(false);
+          messages.diabetes.push("high sugar");
+        }
+      }
+
+      if (nut) {
+        messages.nut.push("a nut allergy");
+        allergy.forEach((ingredient) => {
+          if (ingredient.includes("nut")) {
+            setNut(true);
+            setRecommend(false);
+            messages.nut.push("contains nuts");
+          }
+        });
+      }
+
+      if (lact) {
+        messages.lact.push("lactose intolerance");
+        allergy.forEach((ingredient) => {
+          if (ingredient.includes("milk")) {
+            setLactose(true);
+            setRecommend(false);
+            messages.lact.push("contains milk");
+          }
+        });
+      }
+
+      console.log(messages)
+    }
+  }, [nutriments, allergy]);
 
   return (
     <View
@@ -111,16 +150,19 @@ export default function FoodInfo({ route, navigation }) {
               />
               <Text style={styles.itemHeading}>{name}</Text>
             </View>
-            <Recommend />
-            {/* <Text style={styles.recommend}>Not recommended</Text>
-            <Text style={styles.bullet}>
-              {"\u2022"} You have a Nut Allergy and this item contains a high
-              quantity of Hazelnuts
+            {/* <Recommend /> */}
+            <Text style={styles.recommend}>
+              {recommend ? "Recommended" : "Not Recommendded"}
             </Text>
-            <Text style={styles.bullet}>
-              {"\u2022"} You have Diabetes and this item contains a high
-              quantity of Sugar and Saturated Fats
-            </Text> */}
+              {nut
+                ? <Text style={styles.bullet}>- You have a <Text style={styles.highlight}>Nut Allergy</Text> and this item contains <Text style={styles.highlight}>Nuts</Text></Text>
+                : null}
+              {diabetes
+                ? <Text style={styles.bullet}>- You have <Text style={styles.highlight}>Diabetes</Text> and this item contains a high quantity of <Text style={styles.highlight}>Sugar</Text></Text>
+                : null}
+              {lactose
+                ? <Text style={styles.bullet}>- You have <Text style={styles.highlight}>Lactose Intolerance</Text> and this item contains <Text style={styles.highlight}>Milk</Text></Text>
+                : null}
             <Card containerStyle={{ borderRadius: 24 }}>
               <Card.Title>Ingredients</Card.Title>
               <Card.Divider />
@@ -192,9 +234,12 @@ const styles = StyleSheet.create({
   },
   bullet: {
     fontFamily: "Quicksand_Regular",
-    fontSize: 12,
+    fontSize: 16,
     paddingVertical: 5,
     paddingHorizontal: 10,
+  },
+  highlight: {
+    color: "#FA4A0C",
   },
   nutrimentsWrapper: {
     alignItems: "center",

@@ -10,9 +10,9 @@ export default function Checkbox(props) {
       try {
         const value = await AsyncStorage.getItem(props.id);
         if (value !== null) {
-          setChecked(checked)
+          setChecked(checked);
         }
-        console.log(value)
+        // console.log(value)
       } catch (e) {
         // error reading value
       }
@@ -22,10 +22,10 @@ export default function Checkbox(props) {
 
   function handleCheck() {
     const prevChecked = checked;
-    const newChecked = ! prevChecked;
+    const newChecked = !prevChecked;
     storeData(props.id, newChecked);
     setChecked(newChecked);
-    console.log(props.id + newChecked)
+    console.log(props.id + newChecked);
   }
 
   const storeData = async (key, value) => {
