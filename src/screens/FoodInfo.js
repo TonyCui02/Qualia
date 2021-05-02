@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import axios from "axios";
 import { Avatar, Card } from "react-native-elements";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FoodInfo({ route, navigation }) {
   const [found, setFound] = useState(-1);

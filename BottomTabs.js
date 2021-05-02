@@ -1,10 +1,9 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Camera from './Camera';
-import FoodInfo from './FoodInfo';
-import Profile from './Profile';
+import Camera from './src/screens/Camera';
+import FoodInfo from './src/screens/FoodInfo';
+import Profile from './src/screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -53,8 +52,6 @@ function Tabs() {
 
 export default function BottomTabs() {
   return (
-    <NavigationContainer>
       <Tabs />
-    </NavigationContainer>
   );
 }

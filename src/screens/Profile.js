@@ -7,10 +7,16 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { Avatar, ListItem, Header, Icon } from "react-native-elements";
-import CheckBox from "./components/Checkbox";
+import { Avatar, ListItem, Header, Icon, Button } from "react-native-elements";
+import CheckBox from "../components/Checkbox";
+import { signOut } from "../api/firebaseMethods";
 
 export default function Profile() {
+
+  function handleSignOut() {
+    signOut();
+    navigation.replace('SignIn');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +41,7 @@ export default function Profile() {
             containerStyle={{ marginHorizontal: 8 }}
           />
           <View>
-            <Text style={styles.personName}>Tony</Text>
+            <Text style={styles.personName}>Tony Cui</Text>
             <Text style={styles.personEmail}>Tonycui02@gmail.com</Text>
           </View>
         </View>
@@ -59,6 +65,9 @@ export default function Profile() {
             <CheckBox title="Nut allergy" id="nut"/>
           </View>
         </View>
+        <Button onPress={handleSignOut}>
+          Sign out
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );

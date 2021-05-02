@@ -47,7 +47,7 @@ export default function Camera({navigation}) {
           style={StyleSheet.absoluteFill, styles.container}>
         <Image 
           style = {styles.image2}
-          source={require('./assets/cameraTarget.png')}/>  
+          source={require('../../assets/images/cameraTarget.png')}/>  
         </BarCodeScanner>        
       </View> 
       {scanned && (
@@ -75,7 +75,7 @@ export default function Camera({navigation}) {
                 }}>
                 <Image 
                 style = {styles.image}
-                source={require('./assets/camera.png')}/>
+                source={require('../../assets/images/camera.png')}/>
               </View>
               <View
               style = {{alignItems : 'center',
