@@ -29,7 +29,7 @@ export default function App() {
     firebase.initializeApp(keys.firebaseConfig);
   }
 
-  const [isSignedIn, setSignedIn] = useState(false);
+  const [isSignedIn, setSignedIn] = useState(true);
 
   const [loaded] = useFonts({
     Quicksand: require("./assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf"),
